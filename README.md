@@ -1,13 +1,17 @@
 # code-detection-frontend
 
-代码检测平台前端静态页，当前用于调用本地后端接口进行任务提交、任务查看和结果查看。
+Vue + Vite frontend for the code detection platform.
 
-## 使用
+## Setup
 
-直接打开 `index.html` 即可。
-
-后端默认地址：
-
-```text
-http://localhost:8080
+```bash
+npm install
 ```
+
+## Run
+
+```bash
+npm run dev
+```
+
+The app runs on `http://127.0.0.1:5174` and proxies `/api` to `http://localhost:8080`.
