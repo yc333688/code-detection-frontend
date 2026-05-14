@@ -11,6 +11,11 @@
       <span>{{ props.serviceStatus }}</span>
     </div>
 
+    <div class="sidebar-user">
+      <span class="meta-chip">当前用户：{{ props.currentUser }}</span>
+      <button type="button" class="ghost-button" @click="$emit('logout')">退出登录</button>
+    </div>
+
     <nav class="menu">
       <button
         v-for="item in props.menuItems"
@@ -49,8 +54,12 @@ const props = defineProps({
   serviceStatusClass: {
     type: String,
     required: true
+  },
+  currentUser: {
+    type: String,
+    required: true
   }
 })
 
-defineEmits(['open-section', 'reload-rule-sets', 'refresh-tasks'])
+defineEmits(['open-section', 'reload-rule-sets', 'refresh-tasks', 'logout'])
 </script>

@@ -2,6 +2,7 @@ const apiBase = ''
 
 async function request(path, options = {}) {
   const response = await fetch(`${apiBase}${path}`, {
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       ...(options.headers || {})
@@ -11,13 +12,36 @@ async function request(path, options = {}) {
 
   if (!response.ok) {
     const text = await response.text()
-    throw new Error(text || `HTTP ${response.status}`)
+    const error = new Error(text || `HTTP ${response.status}`)
+    error.status = response.status
+    throw error
+  }
+
+  if (response.status === 204) {
+    return null
   }
 
   return response.json()
 }
 
 export const codeDetectApi = {
+  login(payload) {
+    return request('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+  },
+
+  logout() {
+    return request('/api/auth/logout', {
+      method: 'POST'
+    })
+  },
+
+  currentUser() {
+    return request('/api/auth/me')
+  },
+
   checkHealth() {
     return request('/api/health')
   },
